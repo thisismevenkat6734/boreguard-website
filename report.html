@@ -114,7 +114,8 @@ var lat=position.coords.latitude;
 var lng=position.coords.longitude;
 
 map.setView([lat,lng],17);
-
+document.getElementById("location").value =
+    lat.toFixed(6) + ", " + lng.toFixed(6);
 marker = L.marker([lat, lng], {
     draggable: true
 }).addTo(map);
