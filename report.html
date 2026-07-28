@@ -126,11 +126,17 @@ marker = L.marker([lat, lng], {
         pos.lat.toFixed(6) + ", " + pos.lng.toFixed(6);
 
 });
+},
+function(error){
+    alert("Location not available. Please enable GPS.");
+},
+{
+    enableHighAccuracy: true,
+    timeout: 10000,
+    maximumAge: 0
+}
+);
 
-document.getElementById("location").value=
-lat+", "+lng;
-
-});
 
 function submitReport(){
 
