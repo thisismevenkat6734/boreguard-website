@@ -158,8 +158,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-window.submitReport = async function () { const photo = document.getElementById("photo").files[0];
 
+window.submitReport = async function () {
+
+const photo = document.getElementById("photo").files[0];
 let imageUrl = "";
 
 if(photo){
@@ -174,11 +176,15 @@ method:"POST",
 body:data
 });
 
-const result = await response.json();
+const result = await response.json();console.log(result);
 
-imageUrl = result.secure_url;
+
+if(result.secure_url){
+    imageUrl = result.secure_url;
+}else{
+    alert(JSON.stringify(result));
+    return;
 }
-
 
   const location = document.getElementById("location").value;
   const description = document.getElementById("description").value;
