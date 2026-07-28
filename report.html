@@ -89,7 +89,7 @@ margin-bottom:15px;
 
 <textarea id="description" rows="5"
 placeholder="Describe the Borewell..."></textarea>
-<img id="preview" style="width:100%;margin-top:15px;border-radius:10px;display:none;">
+
 <button onclick="submitReport()">
 Submit Report
 </button>
@@ -115,7 +115,17 @@ var lng=position.coords.longitude;
 
 map.setView([lat,lng],17);
 
-marker=L.marker([lat,lng]).addTo(map);
+marker = L.marker([lat, lng], {
+    draggable: true
+}).addTo(map);
+  marker.on("dragend", function () {
+
+    var pos = marker.getLatLng();
+
+    document.getElementById("location").value =
+        pos.lat.toFixed(6) + ", " + pos.lng.toFixed(6);
+
+});
 
 document.getElementById("location").value=
 lat+", "+lng;
