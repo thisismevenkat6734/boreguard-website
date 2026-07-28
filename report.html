@@ -128,7 +128,8 @@ marker = L.marker([lat, lng], {
 });
 },
 function(error){
-    alert("Location not available. Please enable GPS.");
+    alert("Error Code: " + error.code + "\n" + error.message);
+},
 },
 {
     enableHighAccuracy: true,
