@@ -199,6 +199,7 @@ if(result.secure_url){
   const description = document.getElementById("description").value;
 
   try {
+    alert("Before Firestore");
     await addDoc(collection(db, "reports"), {
 
   name: localStorage.getItem("name"),
@@ -214,14 +215,16 @@ if(result.secure_url){
   image: imageUrl,
 
   timestamp: new Date()
-
+alert("After Firestore");
 });
 
     alert("✅ Report Submitted Successfully!");
+} catch (e) {
 
-  } catch (e) {
-    alert("❌ Error: " + e.message);
-  }
+  alert("Firestore Error: " + e.message);
+
+}
+  
 
 };
 
