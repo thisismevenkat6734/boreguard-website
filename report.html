@@ -200,10 +200,21 @@ if(result.secure_url){
 
   try {
     await addDoc(collection(db, "reports"), {
-    location: location,
-    description: description,
-    image: imageUrl,
-    timestamp: new Date()
+
+  name: localStorage.getItem("name"),
+
+  district: localStorage.getItem("district"),
+
+  village: localStorage.getItem("village"),
+
+  location: location,
+
+  description: description,
+
+  image: imageUrl,
+
+  timestamp: new Date()
+
 });
 
     alert("✅ Report Submitted Successfully!");
