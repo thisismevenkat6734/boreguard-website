@@ -203,20 +203,17 @@ if(result.secure_url){
     await addDoc(collection(db, "reports"), {
 
   name: localStorage.getItem("name"),
-
   district: localStorage.getItem("district"),
-
   village: localStorage.getItem("village"),
 
   location: location,
-
   description: description,
-
   image: imageUrl,
-
   timestamp: new Date()
-alert("After Firestore");
+
 });
+
+alert("After Firestore");
 
     alert("✅ Report Submitted Successfully!");
 } catch (e) {
