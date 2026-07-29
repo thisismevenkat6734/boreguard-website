@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BoreGuard Registration</title>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#f4f7fa;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+.container{
+background:white;
+padding:25px;
+width:90%;
+max-width:450px;
+border-radius:12px;
+box-shadow:0 0 15px rgba(0,0,0,.15);
+}
+
+h2{
+text-align:center;
+color:#0077cc;
+}
+
+input{
+width:100%;
+padding:12px;
+margin-top:12px;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:16px;
+box-sizing:border-box;
+}
+
+button{
+width:100%;
+padding:14px;
+margin-top:20px;
+background:#28a745;
+color:white;
+border:none;
+border-radius:8px;
+font-size:18px;
+cursor:pointer;
+}
+
+button:hover{
+background:#218838;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Welcome to BoreGuard</h2>
+
+<input type="text" id="name" placeholder="Enter Your Name">
+
+<input type="text" id="district" placeholder="Enter District">
+
+<input type="text" id="village" placeholder="Enter Village">
+
+<button onclick="saveUser()">
+Continue
+</button>
+
+</div>
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.saveUser = async function(){
+
+const name = document.getElementById("name").value.trim();
+const district = document.getElementById("district").value.trim();
+const village = document.getElementById("village").value.trim();
+
+if(!name || !district || !village){
+alert("Please fill all details");
+return;
+}
+
+localStorage.setItem("name", name);
+localStorage.setItem("district", district);
+localStorage.setItem("village", village);
+
+try{
+
+await addDoc(collection(db,"users"),{
+name:name,
+district:district,
+village:village,
+joined:new Date()
+});
+
+window.location.href="report.html";
+
+}catch(e){
+
+alert(e.message);
+
+}
+
+}
+
+</script>
+</body>
+</html>
