@@ -95,7 +95,15 @@ Submit Report
 </button>
 
 </div>
-
+<script>
+if (
+  !localStorage.getItem("name") ||
+  !localStorage.getItem("district") ||
+  !localStorage.getItem("village")
+) {
+  window.location.href = "register.html";
+}
+</script>
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script>
