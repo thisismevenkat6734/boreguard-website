@@ -109,13 +109,15 @@ localStorage.setItem("district", district);
 localStorage.setItem("village", village);
 
 try{
-
+alert("Saving user...");
 await addDoc(collection(db,"users"),{
+
 name:name,
 district:district,
 village:village,
 joined:new Date()
 });
+  alert("User saved successfully");
 
 window.location.href="report.html";
 
