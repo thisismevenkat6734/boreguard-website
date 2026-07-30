@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
@@ -15,6 +14,7 @@ margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:Arial,sans-serif;
+scroll-behavior:smooth;
 }
 
 body{
@@ -31,12 +31,13 @@ align-items:center;
 position:sticky;
 top:0;
 z-index:1000;
+box-shadow:0 3px 10px rgba(0,0,0,.2);
 }
 
 .logo{
 font-size:28px;
 font-weight:bold;
-color:white;
+color:#fff;
 }
 
 nav ul{
@@ -53,201 +54,124 @@ transition:.3s;
 }
 
 nav ul li a:hover{
-color:#ffd700;
+color:#FFD700;
 }
 
 .hero{
-
 background:linear-gradient(135deg,#0077cc,#00c6ff);
-
 color:white;
-
-padding:90px 20px;
-
 text-align:center;
-
+padding:90px 20px;
 }
 
 .hero h1{
-
 font-size:42px;
-
 margin-bottom:20px;
-
 }
 
 .hero p{
-
 font-size:20px;
-
-max-width:700px;
-
+max-width:750px;
 margin:auto;
-
-line-height:1.6;
-
+line-height:1.7;
 }
 
 .buttons{
-
 margin-top:35px;
-
 }
 
 .btn{
-
 display:inline-block;
-
-padding:14px 28px;
-
+padding:14px 30px;
 margin:10px;
-
 border-radius:8px;
-
 text-decoration:none;
-
 font-size:18px;
-
 font-weight:bold;
-
-transition:.3s;
-
 color:white;
-
+transition:.3s;
 }
 
 .report{
-
 background:#e53935;
-
 }
 
 .report:hover{
-
 background:#c62828;
-
 }
 
 .myreports{
-
 background:#43a047;
-
 }
 
 .myreports:hover{
-
 background:#2e7d32;
-
 }
 
 .section{
-
 padding:60px 20px;
-
 max-width:1100px;
-
 margin:auto;
-
 text-align:center;
-
 }
 
 .section h2{
-
-color:#0056b3;
-
-margin-bottom:20px;
-
 font-size:34px;
-
+color:#0056b3;
+margin-bottom:20px;
 }
 
 .cards{
-
 display:grid;
-
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-
 gap:25px;
-
 margin-top:40px;
-}
-.cards{
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-
-gap:25px;
-
-margin-top:40px;
-
 }
 
 .card{
-
 background:white;
-
 padding:25px;
-
 border-radius:15px;
-
 box-shadow:0 5px 15px rgba(0,0,0,.15);
-
 transition:.3s;
-
 }
 
 .card:hover{
-
-transform:translateY(-6px);
-
+transform:translateY(-8px);
 }
 
 .card h3{
-
 color:#0077cc;
-
 margin-bottom:15px;
-
 }
 
 .card p{
-
-line-height:1.6;
-
+line-height:1.7;
 }
 
 footer{
-
 background:#111;
-
-padding:30px;
-
+padding:35px;
 text-align:center;
-
 color:white;
-
 margin-top:50px;
-
 }
 
 .creator{
-
-font-size:20px;
-
+font-size:24px;
 font-weight:bold;
-
-background:linear-gradient(90deg,#FFD700,#FFA500,#FF4500);
-
+background:linear-gradient(90deg,#FFD700,#FF9800,#FF5722,#FFD700);
+background-size:300%;
 -webkit-background-clip:text;
-
 -webkit-text-fill-color:transparent;
+animation:shine 4s linear infinite;
+text-shadow:0 0 18px rgba(255,215,0,.8);
+margin-top:18px;
+}
 
-text-shadow:0 0 10px rgba(255,215,0,.7);
-
-margin-top:12px;
-
+@keyframes shine{
+0%{background-position:0%;}
+100%{background-position:300%;}
 }
 
 </style>
@@ -258,20 +182,13 @@ margin-top:12px;
 
 <nav>
 
-<div class="logo">
-
-🛡 BoreGuard
-
-</div>
+<div class="logo">🛡 BoreGuard</div>
 
 <ul>
 
 <li><a href="#">Home</a></li>
-
 <li><a href="report.html">Report</a></li>
-
 <li><a href="myreports.html">My Reports</a></li>
-
 <li><a href="#about">About</a></li>
 
 </ul>
@@ -283,26 +200,15 @@ margin-top:12px;
 <h1>Protect Every Life</h1>
 
 <p>
-
 Help identify and report dangerous open borewells before accidents happen.
-
 Together we can save innocent lives.
-
 </p>
 
 <div class="buttons">
 
-<a href="report.html" class="btn report">
+<a href="report.html" class="btn report">🚨 Report Borewell</a>
 
-🚨 Report Borewell
-
-</a>
-
-<a href="myreports.html" class="btn myreports">
-
-📋 My Reports
-
-</a>
+<a href="myreports.html" class="btn myreports">📋 My Reports</a>
 
 </div>
 
@@ -314,63 +220,45 @@ Together we can save innocent lives.
 <div class="cards">
 
 <div class="card">
-
 <h3>📍 Live GPS Location</h3>
-
 <p>
 Capture the exact borewell location using your device GPS for accurate reporting.
 </p>
-
 </div>
 
 <div class="card">
-
 <h3>📸 Photo Evidence</h3>
-
 <p>
 Upload real-time photos of dangerous borewells to help authorities verify reports.
 </p>
-
 </div>
 
 <div class="card">
-
 <h3>🗺 Interactive Map</h3>
-
 <p>
 View reported borewells on an interactive map and navigate to their locations.
 </p>
-
 </div>
 
 <div class="card">
-
 <h3>⚡ Instant Reporting</h3>
-
 <p>
 Submit reports within seconds using a simple and mobile-friendly interface.
 </p>
-
 </div>
 
 <div class="card">
-
 <h3>🤝 Citizen Participation</h3>
-
 <p>
 Every citizen can contribute to preventing borewell accidents and saving lives.
 </p>
-
 </div>
 
 <div class="card">
-
 <h3>🌍 Future Ready</h3>
-
 <p>
 Designed to become a nationwide and global borewell safety reporting platform.
 </p>
-
 </div>
 
 </div>
@@ -383,32 +271,29 @@ Designed to become a nationwide and global borewell safety reporting platform.
 
 <p style="max-width:900px;margin:auto;font-size:18px;line-height:1.8;">
 
-BoreGuard is an innovative citizen-driven safety platform created to identify,
-report and monitor dangerous open borewells.
-By combining GPS, maps, cloud technology and community participation,
-BoreGuard aims to reduce accidents and help authorities respond quickly.
+BoreGuard is an innovative citizen-driven safety platform that empowers citizens to report dangerous open borewells using GPS, maps and cloud technology.
 
-Every report submitted by a citizen can help prevent a tragedy and protect lives.
+Every report helps authorities identify hazards faster and prevent tragic accidents.
+
+Our vision is to build the world's largest borewell safety reporting platform and save lives through technology and community participation.
 
 </p>
 
 </section>
+
 <section class="section">
 
 <h2>Our Mission</h2>
 
 <p style="max-width:900px;margin:auto;font-size:18px;line-height:1.8;">
 
-Every open borewell is a potential danger.
+Our mission is to eliminate accidents caused by open borewells by enabling instant reporting, accurate location tracking and faster response from authorities.
 
-Our mission is to build a safer India by empowering citizens to report dangerous borewells instantly and help authorities take timely action.
-
-Together, we can prevent accidents and save precious lives.
+Together we can build a safer future.
 
 </p>
 
 </section>
-
 <footer>
 
 <h2>BoreGuard</h2>
