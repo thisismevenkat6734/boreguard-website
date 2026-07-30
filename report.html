@@ -168,10 +168,12 @@ const db = getFirestore(app);
 
 
 window.submitReport = async function () {
+
+  alert("Button Clicked");
+
   alert("submitReport started");
 
-const photo = document.getElementById("photo").files[0];
-let imageUrl = "";
+  const photo = document.getElementById("photo").files[0];
 
 if(photo){
 
