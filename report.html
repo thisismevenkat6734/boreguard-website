@@ -324,11 +324,21 @@ async function loadReports() {
 
     if (isNaN(lat) || isNaN(lng)) return;
 
-    let popup = `
-      <b>${data.name}</b><br>
-      ${data.description}<br>
-      ${data.village}
-    `;
+let popup = `
+<b>${data.name}</b><br>
+📍 ${data.village}, ${data.district}<br><br>
+
+📝 ${data.description}<br><br>
+
+${data.image ? `<img src="${data.image}" width="150"><br><br>` : ""}
+
+<a href="https://www.google.com/maps?q=${lat},${lng}" target="_blank">
+<button style="padding:8px 15px;background:#0077cc;color:white;border:none;border-radius:6px;">
+🧭 Navigate
+</button>
+</a>
+`;
+    
 
     if (data.image) {
       popup += `<br><img src="${data.image}" width="150">`;
