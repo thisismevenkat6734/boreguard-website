@@ -182,19 +182,39 @@ padding:25px;
 
 border-radius:15px;
 
-box-shadow:0 5px 15px rgba(0,0,0,.15);
+.creator{
 
-transition:.3s;
+font-size:24px;
+
+font-weight:bold;
+
+background:linear-gradient(90deg,#FFD700,#FF9800,#FF5722,#FFD700);
+
+background-size:300%;
+
+-webkit-background-clip:text;
+
+-webkit-text-fill-color:transparent;
+
+animation:shine 4s linear infinite;
+
+text-shadow:0 0 18px rgba(255,215,0,.8);
+
+margin-top:15px;
 
 }
 
-.card:hover{
+@keyframes shine{
 
-transform:translateY(-6px);
-
+0%{
+background-position:0%;
 }
 
-.card h3{
+100%{
+background-position:300%;
+}
+
+}
 
 color:#0077cc;
 
