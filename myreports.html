@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>My Reports - BoreGuard</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#f2f5f9;
+}
+
+header{
+background:#0077cc;
+color:#fff;
+padding:18px;
+text-align:center;
+font-size:24px;
+font-weight:bold;
+}
+
+.container{
+padding:15px;
+max-width:900px;
+margin:auto;
+}
+
+.card{
+background:#fff;
+border-radius:12px;
+padding:15px;
+margin-bottom:18px;
+box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+
+.card img{
+width:100%;
+border-radius:10px;
+margin-top:10px;
+}
+
+.card h3{
+margin:0;
+color:#0077cc;
+}
+
+.btn{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:none;
+border-radius:8px;
+font-size:16px;
+cursor:pointer;
+color:white;
+}
+
+.edit{
+background:#ff9800;
+}
+
+.delete{
+background:#e53935;
+}
+
+.navigate{
+background:#0077cc;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+📋 My Reports
+</header>
+
+<div class="container">
+
+<div id="reports"></div>
+
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+getFirestore,
+collection,
+getDocs,
+deleteDoc,
+doc
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+const firebaseConfig={
+apiKey:"AIzaSyDc4-YGMUo8C7b45NKZ7jNYbRKfKKC_V0I",
+authDomain:"boreguard-57e1b.firebaseapp.com",
+projectId:"boreguard-57e1b",
+storageBucket:"boreguard-57e1b.firebasestorage.app",
+messagingSenderId:"630445227350",
+appId:"1:630445227350:web:3974c5f0ff4ca692946af7"
+};
+
+const app=initializeApp(firebaseConfig);
+const db=getFirestore(app);
+
+const reportsDiv=document.getElementById("reports");
+
+const userName=localStorage.getItem("name");
+  async function loadReports(){
+
+reportsDiv.innerHTML="Loading...";
+
+const snapshot=await getDocs(collection(db,"reports"));
+
+reportsDiv.innerHTML="";
+
+snapshot.forEach((report)=>{
+
+const data=report.data();
+
+if(data.name!==userName)return;
+
+const card=document.createElement("div");
+
+card.className="card";
+
+let lat="";
+let lng="";
+
+if(data.location){
+
+const coords=data.location.split(",");
+
+lat=coords[0].trim();
+
+lng=coords[1].trim();
+
+}
+
+card.innerHTML=`
+
+<h3>${data.name}</h3>
+
+<p><b>District:</b> ${data.district}</p>
+
+<p><b>Village:</b> ${data.village}</p>
+
+<p><b>Location:</b> ${data.location}</p>
+
+<p><b>Description:</b><br>${data.description}</p>
+
+${data.image?`<img src="${data.image}">`:""}
+
+<button class="btn navigate"
+onclick="window.open('https://www.google.com/maps?q=${lat},${lng}','_blank')">
+
+🧭 Navigate
+
+</button>
+
+<button class="btn edit"
+onclick="editReport('${report.id}')">
+
+✏️ Edit
+
+</button>
+
+<button class="btn delete"
+onclick="deleteReport('${report.id}')">
+
+🗑 Delete
+
+</button>
+
+`;
+
+reportsDiv.appendChild(card);
+
+});
+
+if(reportsDiv.innerHTML===""){
+
+reportsDiv.innerHTML="<center><h3>No Reports Found</h3></center>";
+
+}
+
+  }
+  window.deleteReport=async function(id){
+
+const ok=confirm("Delete this report?");
+
+if(!ok)return;
+
+try{
+
+await deleteDoc(doc(db,"reports",id));
+
+alert("✅ Report Deleted");
+
+loadReports();
+
+}catch(e){
+
+alert(e.message);
+
+}
+
+}
+
+window.editReport=function(id){
+
+localStorage.setItem("editReportId",id);
+
+window.location.href="editreport.html";
+
+}
+
+loadReports();
+
+</script>
+
+</body>
+</html>
+  
