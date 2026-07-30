@@ -213,7 +213,12 @@ maximumAge:0
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDc4-YGMUo8C7b45NKZ7jNYbRKfKKC_V0I",
@@ -299,6 +304,45 @@ e.message
 }
 
 };
+
+async function loadReports() {
+
+  const snapshot = await getDocs(collection(db, "reports"));
+
+  snapshot.forEach((doc) => {
+
+    const data = doc.data();
+
+    if (!data.location) return;
+
+    const coords = data.location.split(",");
+
+    if (coords.length !== 2) return;
+
+    const lat = parseFloat(coords[0]);
+    const lng = parseFloat(coords[1]);
+
+    if (isNaN(lat) || isNaN(lng)) return;
+
+    let popup = `
+      <b>${data.name}</b><br>
+      ${data.description}<br>
+      ${data.village}
+    `;
+
+    if (data.image) {
+      popup += `<br><img src="${data.image}" width="150">`;
+    }
+
+    L.marker([lat, lng]).addTo(map).bindPopup(popup);
+
+  });
+
+}
+
+loadReports();
+
+</script>
 
 </script>
 
