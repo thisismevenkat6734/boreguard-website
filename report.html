@@ -1,23 +1,27 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Report Borewell - BoreGuard</title>
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<title>BoreGuard - Report Borewell</title>
+
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
 <style>
+
 body{
-font-family:Arial,sans-serif;
 margin:0;
+font-family:Arial,sans-serif;
 background:#f4f7fa;
 }
 
 header{
 background:#0077cc;
 color:white;
-padding:20px;
+padding:18px;
 text-align:center;
 font-size:24px;
 font-weight:bold;
@@ -29,26 +33,30 @@ margin:20px auto;
 background:white;
 padding:20px;
 border-radius:12px;
-box-shadow:0 0 15px rgba(0,0,0,.1);
+box-shadow:0 0 10px rgba(0,0,0,.15);
 }
 
-input,textarea{
+h2{
+margin-top:0;
+}
+
+input,
+textarea,
+button{
 width:100%;
 padding:12px;
-margin-top:10px;
+margin-top:12px;
 margin-bottom:15px;
-border:1px solid #ccc;
-border-radius:8px;
 font-size:16px;
+border-radius:8px;
+border:1px solid #ccc;
+box-sizing:border-box;
 }
 
 button{
-width:100%;
-padding:15px;
 background:#28a745;
 color:white;
 border:none;
-border-radius:8px;
 font-size:18px;
 cursor:pointer;
 }
@@ -62,6 +70,14 @@ height:300px;
 border-radius:10px;
 margin-bottom:15px;
 }
+
+#preview{
+width:100%;
+display:none;
+border-radius:10px;
+margin-top:10px;
+}
+
 </style>
 
 </head>
@@ -69,26 +85,34 @@ margin-bottom:15px;
 <body>
 
 <header>
-🚨 Report Open Borewell
+🚨 BoreGuard Report
 </header>
 
 <div class="container">
 
-<h2>Borewell Report</h2>
+<h2>Report Open Borewell</h2>
 
 <div id="map"></div>
 
-<input type="text" id="location" placeholder="Fetching Location..." readonly>
+<input
+type="text"
+id="location"
+placeholder="Fetching Location..."
+readonly>
 
 <input
-  type="file"
-  id="photo"
-  accept="image/*"
-  capture="environment">
-  <img id="preview" style="width:100%;margin-top:15px;border-radius:10px;display:none;">
+type="file"
+id="photo"
+accept="image/*"
+capture="environment">
 
-<textarea id="description" rows="5"
-placeholder="Describe the Borewell..."></textarea>
+<img id="preview">
+
+<textarea
+id="description"
+rows="5"
+placeholder="Describe the Borewell">
+</textarea>
 
 <button onclick="submitReport()">
 Submit Report
@@ -96,56 +120,94 @@ Submit Report
 
 </div>
 <script>
-if (
-  !localStorage.getItem("name") ||
-  !localStorage.getItem("district") ||
-  !localStorage.getItem("village")
-) {
-  window.location.href = "register.html";
+
+if(
+!localStorage.getItem("name") ||
+!localStorage.getItem("district") ||
+!localStorage.getItem("village")
+){
+window.location.href="register.html";
 }
+
 </script>
+
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script>
 
-var map=L.map('map').setView([20.5937,78.9629],5);
+const preview=document.getElementById("preview");
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+document.getElementById("photo").addEventListener("change",function(){
+
+const file=this.files[0];
+
+if(file){
+
+preview.src=URL.createObjectURL(file);
+
+preview.style.display="block";
+
+}
+
+});
+
+var map=L.map("map").setView([20.5937,78.9629],5);
+
+L.tileLayer(
+"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+{
 maxZoom:19
-}).addTo(map);
+}
+).addTo(map);
 
 var marker;
 
-navigator.geolocation.getCurrentPosition(function(position){
+navigator.geolocation.getCurrentPosition(
 
-var lat=position.coords.latitude;
-var lng=position.coords.longitude;
+function(position){
+
+const lat=position.coords.latitude;
+const lng=position.coords.longitude;
 
 map.setView([lat,lng],17);
-document.getElementById("location").value =
-    lat.toFixed(6) + ", " + lng.toFixed(6);
-marker = L.marker([lat, lng], {
-    draggable: true
-}).addTo(map);
-  marker.on("dragend", function () {
 
-    var pos = marker.getLatLng();
+document.getElementById("location").value=
+lat.toFixed(6)+", "+lng.toFixed(6);
 
-    document.getElementById("location").value =
-        pos.lat.toFixed(6) + ", " + pos.lng.toFixed(6);
+marker=L.marker(
+[lat,lng],
+{
+draggable:true
+}
+).addTo(map);
+
+marker.on("dragend",function(){
+
+const pos=marker.getLatLng();
+
+document.getElementById("location").value=
+pos.lat.toFixed(6)+", "+
+pos.lng.toFixed(6);
 
 });
-},
-function(error){
-    alert("Error Code: " + error.code + "\n" + error.message);
-},
-{
-    enableHighAccuracy: false,
-    timeout: 60000,
-    maximumAge: 0
-}
-);
 
+},
+
+function(error){
+
+alert(error.message);
+
+},
+
+{
+
+enableHighAccuracy:true,
+timeout:60000,
+maximumAge:0
+
+}
+
+);
 
 </script>
 <script type="module">
@@ -159,79 +221,86 @@ const firebaseConfig = {
   projectId: "boreguard-57e1b",
   storageBucket: "boreguard-57e1b.firebasestorage.app",
   messagingSenderId: "630445227350",
-  appId: "1:630445227350:web:3974c5f0ff4ca692946af7",
-  measurementId: "G-9F488TCQK7"
+  appId: "1:630445227350:web:3974c5f0ff4ca692946af7"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-
 window.submitReport = async function () {
 
-  alert("Button Clicked");
+try {
 
-  alert("submitReport started");
+const location = document.getElementById("location").value;
+const description = document.getElementById("description").value;
+const photo = document.getElementById("photo").files[0];
 
-  const photo = document.getElementById("photo").files[0];
+let imageUrl = "";
 
 if(photo){
 
 const data = new FormData();
 
-data.append("file", photo);
-data.append("upload_preset", "boreguard_upload");
-alert("Uploading image...");
-const response = await fetch("https://api.cloudinary.com/v1_1/dkshchiq7/image/upload",{
+data.append("file",photo);
+data.append("upload_preset","boreguard_upload");
+
+const response = await fetch(
+"https://api.cloudinary.com/v1_1/dkshchiq7/image/upload",
+{
 method:"POST",
 body:data
-});
+}
+);
 
-const result = await response.json();console.log(result);
-
+const result = await response.json();
 
 if(result.secure_url){
-    imageUrl = result.secure_url;
+
+imageUrl=result.secure_url;
+
 }else{
-    alert(JSON.stringify(result));
-    return;
+
+throw new Error("Image upload failed");
+
 }
+
 }
-  const location = document.getElementById("location").value;
-  const description = document.getElementById("description").value;
 
-  try {
-    alert("Before Firestore");
-    await addDoc(collection(db, "reports"), {
+await addDoc(collection(db,"reports"),{
 
-  name: localStorage.getItem("name"),
-  district: localStorage.getItem("district"),
-  village: localStorage.getItem("village"),
+name:localStorage.getItem("name"),
+district:localStorage.getItem("district"),
+village:localStorage.getItem("village"),
 
-  location: location,
-  description: description,
-  image: imageUrl,
-  timestamp: new Date()
+location:location,
+description:description,
+image:imageUrl,
+
+timestamp:new Date()
 
 });
 
-alert("After Firestore");
+alert("✅ Report Submitted Successfully!");
 
-    alert("✅ Report Submitted Successfully!");
+document.getElementById("description").value="";
+document.getElementById("photo").value="";
+document.getElementById("preview").style.display="none";
 
- } catch (e) {
+}
+catch(e){
 
-  console.error(e);
+console.error(e);
 
-  alert(
-    "Code: " + e.code +
-    "\nMessage: " + e.message
-  );
+alert(
+"Error:\n"+
+e.message
+);
 
-} 
+}
 
-
+};
 
 </script>
+
 </body>
 </html>
