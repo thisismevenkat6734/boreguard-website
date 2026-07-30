@@ -216,14 +216,19 @@ if(result.secure_url){
 alert("After Firestore");
 
     alert("✅ Report Submitted Successfully!");
-} catch (e) {
 
-  alert("Firestore Error: " + e.message);
+ } catch (e) {
 
-}
-  
+  console.error(e);
 
-};
+  alert(
+    "Code: " + e.code +
+    "\nMessage: " + e.message
+  );
+
+} 
+
+
 
 </script>
 </body>
