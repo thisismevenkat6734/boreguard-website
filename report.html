@@ -1,7 +1,7 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -66,7 +66,7 @@ background:#218838;
 }
 
 #map{
-height:300px;
+height:320px;
 border-radius:10px;
 margin-bottom:15px;
 }
@@ -97,8 +97,9 @@ margin-top:10px;
 <input
 type="text"
 id="location"
-placeholder="Fetching Location..."
+placeholder="Fetching GPS Location..."
 readonly>
+
 <input
 type="file"
 id="photo"
@@ -118,6 +119,7 @@ Submit Report
 </button>
 
 </div>
+
 <script>
 
 if(
@@ -133,6 +135,9 @@ window.location.href="register.html";
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script>
+
+let currentDistrict="";
+let currentVillage="";
 
 const preview=document.getElementById("preview");
 
@@ -162,27 +167,28 @@ maxZoom:19
 var marker;
 
 navigator.geolocation.getCurrentPosition(
+
 async function(position){
 
 const lat=position.coords.latitude;
 const lng=position.coords.longitude;
 
-const geoResponse = await fetch(
+const response=await fetch(
 `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
 );
 
-const geoData = await geoResponse.json();
+const geo=await response.json();
 
-currentDistrict =
-geoData.address.state_district ||
-geoData.address.state ||
+currentDistrict=
+geo.address.state_district||
+geo.address.state||
 "";
 
-currentVillage =
-geoData.address.village ||
-geoData.address.town ||
-geoData.address.city ||
-geoData.address.suburb ||
+currentVillage=
+geo.address.village||
+geo.address.town||
+geo.address.city||
+geo.address.suburb||
 "";
 
 map.setView([lat,lng],17);
@@ -196,23 +202,41 @@ marker=L.marker(
 draggable:true
 }
 ).addTo(map);
-
-marker.on("dragend",function(){
+  marker.on("dragend",async function(){
 
 const pos=marker.getLatLng();
 
 document.getElementById("location").value=
-pos.lat.toFixed(6)+", "+
-pos.lng.toFixed(6);
+pos.lat.toFixed(6)+", "+pos.lng.toFixed(6);
+
+const response=await fetch(
+`https://nominatim.openstreetmap.org/reverse?format=json&lat=${pos.lat}&lon=${pos.lng}`
+);
+
+const geo=await response.json();
+
+currentDistrict=
+geo.address.state_district||
+geo.address.state||
+"";
+
+currentVillage=
+geo.address.village||
+geo.address.town||
+geo.address.city||
+geo.address.suburb||
+"";
 
 });
 
 },
-  function(error){
+
+function(error){
 
 alert("Location permission denied.");
 
 },
+
 {
 
 enableHighAccuracy:true,
@@ -224,47 +248,52 @@ maximumAge:0
 );
 
 </script>
+
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
 import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs
+
+getFirestore,
+collection,
+addDoc,
+getDocs
+
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDc4-YGMUo8C7b45NKZ7jNYbRKfKKC_V0I",
-  authDomain: "boreguard-57e1b.firebaseapp.com",
-  projectId: "boreguard-57e1b",
-  storageBucket: "boreguard-57e1b.firebasestorage.app",
-  messagingSenderId: "630445227350",
-  appId: "1:630445227350:web:3974c5f0ff4ca692946af7"
+const firebaseConfig={
+
+apiKey:"AIzaSyDc4-YGMUo8C7b45NKZ7jNYbRKfKKC_V0I",
+authDomain:"boreguard-57e1b.firebaseapp.com",
+projectId:"boreguard-57e1b",
+storageBucket:"boreguard-57e1b.firebasestorage.app",
+messagingSenderId:"630445227350",
+appId:"1:630445227350:web:3974c5f0ff4ca692946af7"
+
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-let currentDistrict = "";
-let currentVillage = "";
-window.submitReport = async function () {
+const app=initializeApp(firebaseConfig);
+const db=getFirestore(app);
 
-try {
+window.submitReport=async function(){
 
-const location = document.getElementById("location").value;
-const description = document.getElementById("description").value;
-const photo = document.getElementById("photo").files[0];
+try{
 
-let imageUrl = "";
+const location=document.getElementById("location").value;
+const description=document.getElementById("description").value;
+const photo=document.getElementById("photo").files[0];
+
+let imageUrl="";
 
 if(photo){
 
-const data = new FormData();
+const data=new FormData();
 
 data.append("file",photo);
 data.append("upload_preset","boreguard_upload");
-document.getElementById("preview").src="";
-const response = await fetch(
+
+const response=await fetch(
 "https://api.cloudinary.com/v1_1/dkshchiq7/image/upload",
 {
 method:"POST",
@@ -272,28 +301,27 @@ body:data
 }
 );
 
-const result = await response.json();
+const result=await response.json();
 
 if(result.secure_url){
 
 imageUrl=result.secure_url;
 
-}else{
-
-throw new Error("Image upload failed");
-
 }
 
 }
-
-await addDoc(collection(db,"reports"),{
+  await addDoc(collection(db,"reports"),{
 
 name:localStorage.getItem("name"),
-district:localStorage.getItem("district"),
-village:localStorage.getItem("village"),
+
+district:currentDistrict,
+
+village:currentVillage,
 
 location:location,
+
 description:description,
+
 image:imageUrl,
 
 timestamp:new Date()
@@ -306,69 +334,66 @@ document.getElementById("description").value="";
 document.getElementById("photo").value="";
 document.getElementById("preview").style.display="none";
 
-}
-catch(e){
+}catch(e){
 
 console.error(e);
 
-alert(
-"Error:\n"+
-e.message
-);
+alert(e.message);
 
 }
 
 };
 
-async function loadReports() {
+async function loadReports(){
 
-  const snapshot = await getDocs(collection(db, "reports"));
+const snapshot=await getDocs(collection(db,"reports"));
 
-  snapshot.forEach((doc) => {
+snapshot.forEach((doc)=>{
 
-    const data = doc.data();
+const data=doc.data();
 
-    if (!data.location) return;
+if(!data.location)return;
 
-    const coords = data.location.split(",");
+const coords=data.location.split(",");
 
-    if (coords.length !== 2) return;
+if(coords.length!==2)return;
 
-    const lat = parseFloat(coords[0]);
-    const lng = parseFloat(coords[1]);
+const lat=parseFloat(coords[0]);
 
-    if (isNaN(lat) || isNaN(lng)) return;
+const lng=parseFloat(coords[1]);
 
-let popup = `
+if(isNaN(lat)||isNaN(lng))return;
+
+let popup=`
+
 <b>${data.name}</b><br>
+
 📍 ${data.village}, ${data.district}<br><br>
 
 📝 ${data.description}<br><br>
 
-${data.image ? `<img src="${data.image}" width="150"><br><br>` : ""}
+${data.image?`<img src="${data.image}" width="150"><br><br>`:""}
 
 <a href="https://www.google.com/maps?q=${lat},${lng}" target="_blank">
+
 <button style="padding:8px 15px;background:#0077cc;color:white;border:none;border-radius:6px;">
+
 🧭 Navigate
+
 </button>
+
 </a>
+
 `;
-    
 
-    if (data.image) {
-      popup += `<br><img src="${data.image}" width="150">`;
-    }
+L.marker([lat,lng]).addTo(map).bindPopup(popup);
 
-    L.marker([lat, lng]).addTo(map).bindPopup(popup);
+});
 
-  });
-
-}
-
-loadReports();
+  }
+  loadReports();
 
 </script>
-
 
 </body>
 </html>
