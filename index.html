@@ -900,7 +900,26 @@ let citizens=new Set();
 let districts=new Set();
 
 const recentContainer=document.getElementById("recentReports");
+recentContainer.innerHTML = "";
+docs.slice(0,5).forEach((doc)=>{
 
+const data = doc.data();
+
+recentContainer.innerHTML += `
+
+<div class="report-card">
+
+${data.image ? `<img src="${data.image}">` : ""}
+
+<h3>${data.village || "Unknown Village"}, ${data.district || "Unknown District"}</h3>
+
+<p>${data.description || ""}</p>
+
+</div>
+
+`;
+
+});
 docs.forEach((doc)=>{
 
 const data=doc.data();
@@ -946,22 +965,6 @@ ${data.image?`<img src="${data.image}" width="180"><br><br>`:""}
 </a>
 
 `);
-
-recentContainer.innerHTML+=`
-
-<div class="report-card">
-
-${data.image?`<img src="${data.image}">`:""}
-
-<h3>${data.village || "Unknown Village"}, ${data.district || "Unknown District"}</h3>
-
-<p>${data.description}</p>
-
-</div>
-
-`;
-
-});
 
 document.getElementById("totalReports").innerHTML=totalReports;
 
