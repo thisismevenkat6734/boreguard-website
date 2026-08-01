@@ -923,7 +923,7 @@ L.marker([lat,lng]).addTo(map)
 
 <b>${data.name}</b><br>
 
-📍 ${data.village}, ${data.district}<br><br>
+📍 ${data.village || "Unknown Village"}, ${data.district || "Unknown District"}
 
 📝 ${data.description}<br><br>
 
@@ -947,7 +947,7 @@ recentContainer.innerHTML+=`
 
 ${data.image?`<img src="${data.image}">`:""}
 
-<h3>${data.village}, ${data.district}</h3>
+<h3>${data.village || "Unknown Village"}, ${data.district || "Unknown District"}</h3>
 
 <p>${data.description}</p>
 
