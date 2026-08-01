@@ -4,13 +4,39 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>BoreGuard</title>
+<title>BoreGuard | Protect Every Life</title>
+
+<meta name="description"
+content="BoreGuard helps citizens report dangerous open borewells using GPS, photos and interactive maps.">
+
+<meta name="keywords"
+content="BoreGuard, Borewell Safety, GPS, Citizen Reporting, Open Borewell, India">
+
+<meta name="author"
+content="Venkat Rao Tirupati">
+
+<meta name="theme-color"
+content="#0056b3">
+
+<link rel="icon"
+href="favicon.png">
 
 <link rel="stylesheet"
 href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
 
 <style>
 
@@ -18,98 +44,102 @@ href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,sans-serif;
+font-family:'Poppins',sans-serif;
 scroll-behavior:smooth;
 }
 
 body{
+
 background:#f4f7fb;
 color:#333;
 overflow-x:hidden;
-}
 
-a{
-text-decoration:none;
 }
 
 img{
+
 max-width:100%;
+
+}
+
+a{
+
+text-decoration:none;
+
+}
+
+button{
+
+cursor:pointer;
+
+font-family:'Poppins',sans-serif;
+
 }
 
 .section{
+
+max-width:1200px;
+margin:auto;
 padding:70px 20px;
-max-width:1200px;
-margin:auto;
-}
 
-.section h2{
-font-size:36px;
-color:#0056b3;
-margin-bottom:20px;
+}
+ .announcement{
+
+background:#ff6f00;
+color:#fff;
 text-align:center;
+padding:10px;
+font-size:15px;
+font-weight:600;
+
 }
 
-.section p{
-font-size:18px;
-line-height:1.8;
-text-align:center;
-}
-
-.container{
-max-width:1200px;
-margin:auto;
-padding:0 20px;
-}
- nav{
+nav{
 
 position:sticky;
 top:0;
 z-index:1000;
 
-background:#0056b3;
-
-padding:16px 30px;
-
 display:flex;
-
 justify-content:space-between;
-
 align-items:center;
 
-box-shadow:0 4px 12px rgba(0,0,0,.18);
+padding:15px 30px;
+
+background:#0056b3;
+
+box-shadow:0 4px 12px rgba(0,0,0,.15);
 
 }
 
 .logo{
 
 font-size:30px;
-
 font-weight:700;
-
 color:#fff;
 
-letter-spacing:.5px;
+}
+
+.nav-right{
+
+display:flex;
+align-items:center;
+gap:20px;
 
 }
 
 nav ul{
 
 display:flex;
-
 list-style:none;
-
-gap:25px;
+gap:20px;
 
 }
 
 nav ul li a{
 
 color:#fff;
-
-font-size:17px;
-
-font-weight:bold;
-
+font-weight:600;
 transition:.3s;
 
 }
@@ -117,6 +147,17 @@ transition:.3s;
 nav ul li a:hover{
 
 color:#FFD54F;
+
+}
+
+#language{
+
+padding:8px 10px;
+border:none;
+border-radius:8px;
+font-size:15px;
+font-weight:600;
+outline:none;
 
 }
 
@@ -128,31 +169,28 @@ color:#fff;
 
 text-align:center;
 
-padding:100px 20px;
+padding:90px 20px;
 
 }
 
 .hero h1{
 
-font-size:48px;
-
+font-size:52px;
+font-weight:800;
 margin-bottom:20px;
 
 }
 
 .hero p{
 
-max-width:800px;
-
+max-width:850px;
 margin:auto;
-
-font-size:21px;
-
-line-height:1.8;
+font-size:20px;
+line-height:1.9;
 
 }
 
-.buttons{
+.hero-buttons{
 
 margin-top:35px;
 
@@ -162,7 +200,7 @@ margin-top:35px;
 
 display:inline-block;
 
-padding:15px 30px;
+padding:15px 32px;
 
 margin:10px;
 
@@ -170,45 +208,42 @@ border-radius:10px;
 
 font-size:18px;
 
-font-weight:bold;
-
-color:#fff;
+font-weight:700;
 
 transition:.3s;
 
+color:#fff;
+
 }
 
-.report{
+.btn-report{
 
 background:#e53935;
 
 }
 
-.report:hover{
+.btn-report:hover{
 
 background:#c62828;
 
 }
 
-.myreports{
+.btn-myreports{
 
 background:#43a047;
 
 }
 
-.myreports:hover{
+.btn-myreports:hover{
 
 background:#2e7d32;
 
 }
-  .stats{
+ .stats{
 
 display:grid;
-
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-
 gap:25px;
-
 margin-top:40px;
 
 }
@@ -216,15 +251,10 @@ margin-top:40px;
 .stat-card{
 
 background:#fff;
-
 padding:30px;
-
-border-radius:15px;
-
+border-radius:16px;
 text-align:center;
-
-box-shadow:0 5px 15px rgba(0,0,0,.15);
-
+box-shadow:0 6px 18px rgba(0,0,0,.12);
 transition:.3s;
 
 }
@@ -237,10 +267,9 @@ transform:translateY(-8px);
 
 .stat-card h3{
 
-font-size:38px;
-
+font-size:40px;
+font-weight:800;
 color:#0077cc;
-
 margin-bottom:10px;
 
 }
@@ -248,9 +277,7 @@ margin-bottom:10px;
 .stat-card p{
 
 font-size:18px;
-
-font-weight:bold;
-
+font-weight:600;
 color:#555;
 
 }
@@ -258,11 +285,8 @@ color:#555;
 .cards{
 
 display:grid;
-
 grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-
 gap:25px;
-
 margin-top:40px;
 
 }
@@ -270,13 +294,9 @@ margin-top:40px;
 .card{
 
 background:#fff;
-
 padding:25px;
-
-border-radius:15px;
-
-box-shadow:0 5px 15px rgba(0,0,0,.15);
-
+border-radius:16px;
+box-shadow:0 6px 18px rgba(0,0,0,.12);
 transition:.3s;
 
 }
@@ -289,181 +309,84 @@ transform:translateY(-8px);
 
 .card h3{
 
-color:#0077cc;
-
-margin-bottom:15px;
-
 font-size:24px;
+font-weight:700;
+color:#0077cc;
+margin-bottom:15px;
 
 }
 
 .card p{
 
-text-align:left;
-
 font-size:17px;
-
-line-height:1.7;
+line-height:1.8;
+color:#444;
 
 }
 
 #map{
 
 height:520px;
-
-border-radius:15px;
-
-box-shadow:0 5px 15px rgba(0,0,0,.18);
-
 margin-top:30px;
-
-}
-  .recent-reports{
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-
-gap:25px;
-
-margin-top:35px;
+border-radius:16px;
+box-shadow:0 6px 18px rgba(0,0,0,.15);
 
 }
 
-.report-card{
+@media(max-width:768px){
 
-background:#fff;
+.hero h1{
 
-padding:20px;
-
-border-radius:15px;
-
-box-shadow:0 5px 15px rgba(0,0,0,.15);
-
-transition:.3s;
+font-size:36px;
 
 }
 
-.report-card:hover{
+.hero p{
 
-transform:translateY(-8px);
+font-size:17px;
 
 }
 
-.report-card img{
+nav{
+
+flex-direction:column;
+gap:15px;
+
+}
+
+.nav-right{
+
+flex-direction:column;
+gap:12px;
+
+}
+
+nav ul{
+
+flex-wrap:wrap;
+justify-content:center;
+
+}
+
+.btn{
 
 width:100%;
-
-height:200px;
-
-object-fit:cover;
-
-border-radius:10px;
-
-margin-bottom:15px;
+max-width:320px;
 
 }
 
-.report-card h3{
-
-color:#0077cc;
-
-margin-bottom:10px;
-
 }
-
-.report-card p{
-
-font-size:16px;
-
-line-height:1.7;
-
-text-align:left;
-
-}
-
-.emergency{
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-
-gap:25px;
-
-margin-top:35px;
-
-}
-
-.emergency-card{
-
-background:#fff3e0;
-
-padding:25px;
-
-border-radius:15px;
-
-text-align:center;
-
-box-shadow:0 5px 15px rgba(0,0,0,.15);
-
-}
-
-.emergency-card h3{
-
-font-size:24px;
-
-color:#e65100;
-
-margin-bottom:10px;
-
-}
-
-.emergency-card p{
-
-font-size:20px;
-
-font-weight:bold;
-
-color:#333;
-
-}
-
-footer{
-
-background:#111;
-
-padding:40px 20px;
-
-text-align:center;
-
-color:white;
-
-margin-top:60px;
-
-}
-
-.creator{
-
-margin-top:20px;
-
-font-size:28px;
-
-font-weight:900;
-
-color:#ff6f00;
-
-letter-spacing:1px;
-
-line-height:1.6;
-
-text-transform:uppercase;
-
-}
-
-</style>
+ </style>
 
 </head>
+
 <body>
+
+<div class="announcement">
+
+⚠️ Report dangerous open borewells immediately to help protect lives.
+
+</div>
 
 <nav>
 
@@ -472,6 +395,8 @@ text-transform:uppercase;
 🛡 BoreGuard
 
 </div>
+
+<div class="nav-right">
 
 <ul>
 
@@ -485,33 +410,54 @@ text-transform:uppercase;
 
 </ul>
 
+<select id="language">
+
+<option value="en">🇬🇧 English</option>
+
+<option value="te">🇮🇳 తెలుగు</option>
+
+<option value="hi">🇮🇳 हिन्दी</option>
+
+<option value="ta">🇮🇳 தமிழ்</option>
+
+<option value="kn">🇮🇳 ಕನ್ನಡ</option>
+
+<option value="ml">🇮🇳 മലയാളം</option>
+
+<option value="or">🇮🇳 ଓଡ଼ିଆ</option>
+
+<option value="bn">🇮🇳 বাংলা</option>
+
+</select>
+
+</div>
+
 </nav>
 
 <section class="hero">
 
-<h1>
+<h1 id="heroTitle">
 
 Protect Every Life
 
 </h1>
 
-<p>
+<p id="heroText">
 
 Help identify and report dangerous open borewells before accidents happen.
-
-Together we can save innocent lives through technology and community participation.
+Together we can protect lives through technology and community participation.
 
 </p>
 
-<div class="buttons">
+<div class="hero-buttons">
 
-<a href="report.html" class="btn report">
+<a href="report.html" class="btn btn-report">
 
 🚨 Report Borewell
 
 </a>
 
-<a href="myreports.html" class="btn myreports">
+<a href="myreports.html" class="btn btn-myreports">
 
 📋 My Reports
 
@@ -522,7 +468,7 @@ Together we can save innocent lives through technology and community participati
 </section>
 <section class="section">
 
-<h2>Live Statistics</h2>
+<h2>📊 Live Statistics</h2>
 
 <div class="stats">
 
@@ -564,6 +510,53 @@ Together we can save innocent lives through technology and community participati
 
 <section class="section">
 
+<h2>🛡 BoreGuard Impact</h2>
+
+<p>
+
+Together, citizens are helping identify dangerous borewells and making communities safer.
+
+</p>
+
+<div class="stats">
+
+<div class="stat-card">
+
+<h3 id="impactReports">0</h3>
+
+<p>Borewells Reported</p>
+
+</div>
+
+<div class="stat-card">
+
+<h3 id="impactCitizens">0</h3>
+
+<p>Citizen Contributors</p>
+
+</div>
+
+<div class="stat-card">
+
+<h3 id="impactDistricts">0</h3>
+
+<p>Districts Reached</p>
+
+</div>
+
+<div class="stat-card">
+
+<h3>❤️</h3>
+
+<p>Protecting Lives Through Early Reporting</p>
+
+</div>
+
+</div>
+
+</section>
+<section class="section">
+
 <h2>Why BoreGuard?</h2>
 
 <div class="cards">
@@ -574,7 +567,7 @@ Together we can save innocent lives through technology and community participati
 
 <p>
 
-Capture the exact borewell location using your device GPS for accurate reporting.
+Automatically captures the exact GPS location of the reported borewell for accurate identification.
 
 </p>
 
@@ -586,7 +579,7 @@ Capture the exact borewell location using your device GPS for accurate reporting
 
 <p>
 
-Upload real-time photos of dangerous open borewells for verification.
+Upload real-time images to help authorities verify the reported borewell quickly.
 
 </p>
 
@@ -598,7 +591,7 @@ Upload real-time photos of dangerous open borewells for verification.
 
 <p>
 
-View every reported borewell on a live interactive map.
+View all reported borewells on a live interactive map with navigation support.
 
 </p>
 
@@ -610,7 +603,7 @@ View every reported borewell on a live interactive map.
 
 <p>
 
-Submit a report within seconds using a simple mobile-friendly interface.
+Submit a borewell report in just a few seconds using a simple interface.
 
 </p>
 
@@ -622,7 +615,7 @@ Submit a report within seconds using a simple mobile-friendly interface.
 
 <p>
 
-Citizens and authorities work together to improve public safety.
+Citizens, volunteers and authorities work together to improve public safety.
 
 </p>
 
@@ -630,11 +623,11 @@ Citizens and authorities work together to improve public safety.
 
 <div class="card">
 
-<h3>☁ Cloud Database</h3>
+<h3>☁ Secure Cloud Database</h3>
 
 <p>
 
-All reports are securely stored in Firebase for quick access and monitoring.
+Reports are securely stored in Firebase and are available in real time.
 
 </p>
 
@@ -643,195 +636,230 @@ All reports are securely stored in Firebase for quick access and monitoring.
 </div>
 
 </section>
+
 <section class="section">
 
 <h2>📍 Live Borewell Map</h2>
 
 <p>
 
-View all reported open borewells across the map.
-Click on any marker to view report details and navigate to the location.
+Explore all reported borewells on the interactive map. Click any marker to view report details and navigate to the location.
 
 </p>
 
 <div id="map"></div>
 
 </section>
+<section class="section">
 
-<section class="section" id="about">
+<h2>📝 Recent Reports</h2>
 
-<h2>About BoreGuard</h2>
+<p>
 
-<p style="max-width:900px;margin:auto;font-size:18px;line-height:1.9;">
-
-BoreGuard is an innovative citizen-driven safety platform designed to identify,
-report and monitor dangerous open borewells using GPS, cloud technology and
-interactive maps.
-
-Every report submitted by a citizen helps authorities respond faster and
-reduces the risk of accidents.
-
-Our vision is to build the world's largest borewell safety reporting platform
-and protect lives through technology and community participation.
+Below are the five most recent borewell reports submitted by citizens.
 
 </p>
+
+<div id="recentReports" class="cards">
+
+</div>
+
+<div style="margin-top:35px;text-align:center;">
+
+<a href="myreports.html" class="btn btn-myreports">
+
+📋 View All Reports
+
+</a>
+
+</div>
 
 </section>
 
 <section class="section">
 
-<h2>Our Mission</h2>
+<h2>🚨 Emergency Contacts</h2>
 
-<p style="max-width:900px;margin:auto;font-size:18px;line-height:1.9;">
+<p>
 
-Our mission is to make every community safer by enabling citizens to report
-dangerous open borewells instantly, helping authorities respond quickly,
-and reducing the risk of accidents through technology and community
-participation.
+In case of an emergency, immediately contact the appropriate emergency service.
 
 </p>
-
-</section>
-<section class="section">
-
-<h2>How BoreGuard Works</h2>
 
 <div class="cards">
 
 <div class="card">
 
-<h3>1️⃣ Report Borewell</h3>
-
-<p>
-
-Citizens identify a dangerous open borewell and submit a report through BoreGuard.
-
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>2️⃣ GPS Location</h3>
-
-<p>
-
-The application automatically captures the precise GPS location of the borewell.
-
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>3️⃣ Upload Photo</h3>
-
-<p>
-
-A real-time photo is uploaded to help authorities verify the report quickly.
-
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>4️⃣ Authority Response</h3>
-
-<p>
-
-The report becomes available for review, enabling authorities to take appropriate action.
-
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>5️⃣ Improve Public Safety</h3>
-
-<p>
-
-Timely reporting and response help reduce risks and create safer communities.
-
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="section">
-
-<h2>Recent Reports</h2>
-
-<p>
-
-The five most recent borewell reports submitted by citizens will appear below.
-
-</p>
-
-<div class="recent-reports" id="recentReports">
-
-</div>
-
-</section>
-<section class="section">
-
-<h2>Emergency Contacts</h2>
-
-<p>
-
-In case of an emergency, immediately contact the appropriate emergency service and report the incident to the nearest authorities.
-
-</p>
-
-<div class="emergency">
-
-<div class="emergency-card">
-
 <h3>🚑 Ambulance</h3>
 
-<p>108</p>
+<p style="font-size:26px;font-weight:bold;text-align:center;">
+
+108
+
+</p>
 
 </div>
 
-<div class="emergency-card">
+<div class="card">
 
 <h3>🚓 Police</h3>
 
-<p>112</p>
+<p style="font-size:26px;font-weight:bold;text-align:center;">
+
+112
+
+</p>
 
 </div>
 
-<div class="emergency-card">
+<div class="card">
 
 <h3>🚒 Fire Service</h3>
 
-<p>101</p>
+<p style="font-size:26px;font-weight:bold;text-align:center;">
+
+101
+
+</p>
 
 </div>
 
-<div class="emergency-card">
+<div class="card">
 
-<h3>👨‍🚒 Disaster Management</h3>
+<h3>🛟 Disaster Management</h3>
 
-<p>1070</p>
+<p style="font-size:26px;font-weight:bold;text-align:center;">
+
+1070
+
+</p>
 
 </div>
 
 </div>
 
 </section>
+<section class="section">
+
+<h2>🤖 BoreGuard Assistant</h2>
+
+<p>
+
+Need help using BoreGuard? Click the Help button below for quick guidance.
+
+</p>
+
+</section>
+
+<!-- Help Button -->
+
+<button id="helpBtn"
+
+style="position:fixed;
+bottom:90px;
+right:20px;
+width:65px;
+height:65px;
+border:none;
+border-radius:50%;
+background:#0077cc;
+color:white;
+font-size:28px;
+box-shadow:0 6px 18px rgba(0,0,0,.3);
+z-index:9999;">
+
+💬
+
+</button>
+
+<!-- Help Window -->
+
+<div id="helpBox"
+
+style="display:none;
+position:fixed;
+bottom:165px;
+right:20px;
+width:320px;
+background:white;
+border-radius:15px;
+box-shadow:0 6px 18px rgba(0,0,0,.3);
+padding:20px;
+z-index:9999;">
+
+<h3 style="color:#0077cc;">
+
+BoreGuard Assistant
+
+</h3>
+
+<p>🚨 How to Report a Borewell</p>
+
+<p>📍 Enable GPS Location</p>
+
+<p>📸 Upload Photo Help</p>
+
+<p>🗺 Map Navigation</p>
+
+<p>📋 My Reports</p>
+
+<p>☎ Emergency Contacts</p>
+
+<p>🌐 Change Language</p>
+
+<p>❓ Frequently Asked Questions</p>
+
+<button onclick="document.getElementById('helpBox').style.display='none'"
+
+style="margin-top:15px;
+width:100%;
+padding:10px;
+background:#e53935;
+color:white;
+border:none;
+border-radius:8px;">
+
+Close
+
+</button>
+
+</div>
+
+<!-- SOS Button -->
+
+<button id="sosBtn"
+
+style="position:fixed;
+bottom:20px;
+right:20px;
+width:65px;
+height:65px;
+border:none;
+border-radius:50%;
+background:#d50000;
+color:white;
+font-size:24px;
+font-weight:bold;
+box-shadow:0 6px 18px rgba(0,0,0,.3);
+z-index:9999;">
+
+SOS
+
+</button>
 
 <footer>
 
 <h2>BoreGuard</h2>
 
-<p style="margin-top:18px;line-height:1.8;">
+<p style="margin-top:15px;">
 
 Protecting Lives Through Technology & Community Participation
+
+</p>
+
+<p style="margin-top:20px;">
+
+Version 2.0.0
 
 </p>
 
@@ -859,82 +887,95 @@ VENKAT RAO TIRUPATI
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 import {
+
 getFirestore,
+
 collection,
+
 getDocs
+
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 const firebaseConfig={
 
 apiKey:"AIzaSyDc4-YGMUo8C7b45NKZ7jNYbRKfKKC_V0I",
+
 authDomain:"boreguard-57e1b.firebaseapp.com",
+
 projectId:"boreguard-57e1b",
+
 storageBucket:"boreguard-57e1b.firebasestorage.app",
+
 messagingSenderId:"630445227350",
+
 appId:"1:630445227350:web:3974c5f0ff4ca692946af7"
 
 };
 
 const app=initializeApp(firebaseConfig);
+
 const db=getFirestore(app);
 
 const map=L.map("map").setView([20.5937,78.9629],5);
 
 L.tileLayer(
+
 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+
 {
+
 maxZoom:19,
+
 attribution:"© OpenStreetMap"
+
 }
+
 ).addTo(map);
 
 const reportsRef=collection(db,"reports");
+
 const snapshot=await getDocs(reportsRef);
-const docs = snapshot.docs.sort((a,b)=>{
-const t1 = a.data().timestamp?.toDate?.() || new Date(0);
-const t2 = b.data().timestamp?.toDate?.() || new Date(0);
-return t2 - t1;
+
+const docs=snapshot.docs.sort((a,b)=>{
+
+const t1=a.data().timestamp?.toDate?.()||new Date(0);
+
+const t2=b.data().timestamp?.toDate?.()||new Date(0);
+
+return t2-t1;
+
 });
+
 let totalReports=0;
+
 let citizens=new Set();
+
 let districts=new Set();
 
 const recentContainer=document.getElementById("recentReports");
-recentContainer.innerHTML = "";
-docs.slice(0,5).forEach((doc)=>{
-
-const data = doc.data();
-
-recentContainer.innerHTML += `
-
-<div class="report-card">
-
-${data.image ? `<img src="${data.image}">` : ""}
-
-<h3>${data.village || "Unknown Village"}, ${data.district || "Unknown District"}</h3>
-
-<p>${data.description || ""}</p>
-
-</div>
-
-`;
-
-});
-docs.forEach((doc)=>{
+ docs.forEach((doc)=>{
 
 const data=doc.data();
 
 totalReports++;
 
+if(data.name){
+
 citizens.add(data.name);
 
+}
+
 if(data.district){
+
 districts.add(data.district);
+
 }
 
 if(!data.location)return;
 
 const coords=data.location.split(",");
+
+if(coords.length!==2)return;
 
 const lat=parseFloat(coords[0]);
 
@@ -942,21 +983,31 @@ const lng=parseFloat(coords[1]);
 
 if(isNaN(lat)||isNaN(lng))return;
 
-L.marker([lat,lng]).addTo(map)
+L.marker([lat,lng])
+
+.addTo(map)
 
 .bindPopup(`
 
-<b>${data.name}</b><br>
+<b>${data.name || "Unknown Citizen"}</b><br>
 
-📍 ${data.village || "Unknown Village"}, ${data.district || "Unknown District"}<br><br>
+📍 ${data.village || "Unknown Village"},
+${data.district || "Unknown District"}<br><br>
 
-📝 ${data.description}<br><br>
+📝 ${data.description || "No description"}<br><br>
 
 ${data.image?`<img src="${data.image}" width="180"><br><br>`:""}
 
-<a href="https://www.google.com/maps?q=${lat},${lng}" target="_blank">
+<a href="https://www.google.com/maps?q=${lat},${lng}"
 
-<button style="padding:8px 15px;background:#0077cc;color:white;border:none;border-radius:6px;cursor:pointer;">
+target="_blank">
+
+<button style="padding:8px 14px;
+background:#0077cc;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;">
 
 🧭 Navigate
 
@@ -966,6 +1017,8 @@ ${data.image?`<img src="${data.image}" width="180"><br><br>`:""}
 
 `);
 
+});
+
 document.getElementById("totalReports").innerHTML=totalReports;
 
 document.getElementById("openReports").innerHTML=totalReports;
@@ -974,30 +1027,354 @@ document.getElementById("totalCitizens").innerHTML=citizens.size;
 
 document.getElementById("districtsCovered").innerHTML=districts.size;
 
+document.getElementById("impactReports").innerHTML=totalReports;
+
+document.getElementById("impactCitizens").innerHTML=citizens.size;
+
+document.getElementById("impactDistricts").innerHTML=districts.size;
+
+docs.slice(0,5).forEach((doc)=>{
+
+const data=doc.data();
+
+recentContainer.innerHTML+=`
+
+<div class="card">
+
+${data.image?`<img src="${data.image}" style="width:100%;height:200px;object-fit:cover;border-radius:10px;margin-bottom:15px;">`:""}
+
+<h3>
+
+${data.village || "Unknown Village"}
+
+</h3>
+
+<p>
+
+${data.description || "No description available."}
+
+</p>
+
+</div>
+
+`;
+
+});
+ // 📍 Show Current User Location
+
 if(navigator.geolocation){
 
 navigator.geolocation.getCurrentPosition(function(position){
 
-L.circleMarker(
-[
-position.coords.latitude,
-position.coords.longitude
-],
-{
+const lat=position.coords.latitude;
+
+const lng=position.coords.longitude;
+
+L.circleMarker([lat,lng],{
+
 radius:8,
+
 color:"#0077cc",
+
 fillColor:"#00c6ff",
+
 fillOpacity:1
-}
-)
+
+})
 
 .addTo(map)
 
-.bindPopup("📍 Your Current Location");
+.bindPopup("📍 You are here")
+
+.openPopup();
+
+map.setView([lat,lng],15);
+
+},
+
+function(){
+
+console.log("Location permission denied.");
 
 });
 
 }
+
+// 🤖 BoreGuard Help Bot
+
+const helpBtn=document.getElementById("helpBtn");
+
+const helpBox=document.getElementById("helpBox");
+
+helpBtn.onclick=function(){
+
+if(helpBox.style.display==="block"){
+
+helpBox.style.display="none";
+
+}else{
+
+helpBox.style.display="block";
+
+}
+
+};
+
+// 🚨 SOS Button
+
+document.getElementById("sosBtn").onclick=function(){
+
+alert(
+
+"🚨 Emergency Contacts\n\n"+
+
+"🚑 Ambulance : 108\n"+
+
+"🚓 Police : 112\n"+
+
+"🚒 Fire Service : 101\n"+
+
+"🛟 Disaster Management : 1070"
+
+);
+
+};
+
+// Hide Help Bot when clicking outside
+
+document.addEventListener("click",function(e){
+
+if(
+
+!helpBox.contains(e.target) &&
+
+e.target!==helpBtn
+
+){
+
+helpBox.style.display="none";
+
+}
+
+});
+ // 🌐 Language System
+
+const translations={
+
+en:{
+title:"Protect Every Life",
+text:"Help identify and report dangerous open borewells before accidents happen. Together we can protect lives through technology and community participation."
+},
+
+te:{
+title:"ప్రతి ప్రాణాన్ని రక్షిద్దాం",
+text:"ప్రమాదకరమైన బోర్‌వెల్‌లను గుర్తించి నివేదించండి. సాంకేతికత మరియు ప్రజల భాగస్వామ్యంతో ప్రాణాలను కాపాడుకుందాం."
+},
+
+hi:{
+title:"हर जीवन की रक्षा करें",
+text:"खुले बोरवेल की तुरंत सूचना दें और लोगों की जान बचाने में सहयोग करें।"
+},
+
+ta:{
+title:"ஒவ்வொரு உயிரையும் பாதுகாப்போம்",
+text:"ஆபத்தான திறந்த போர்வெல்களை உடனடியாக புகாரளித்து உயிர்களை காப்பாற்றுங்கள்."
+},
+
+kn:{
+title:"ಪ್ರತಿ ಜೀವವನ್ನು ರಕ್ಷಿಸೋಣ",
+text:"ಅಪಾಯಕಾರಿ ತೆರೆದ ಬೋರ್‌ವೆಲ್‌ಗಳನ್ನು ವರದಿ ಮಾಡಿ ಜೀವಗಳನ್ನು ಉಳಿಸೋಣ."
+},
+
+ml:{
+title:"ഓരോ ജീവനെയും സംരക്ഷിക്കാം",
+text:"അപകടകരമായ തുറന്ന ബോർവെല്ലുകൾ റിപ്പോർട്ട് ചെയ്ത് ജീവൻ രക്ഷിക്കൂ."
+},
+
+or:{
+title:"ପ୍ରତ୍ୟେକ ଜୀବନକୁ ସୁରକ୍ଷା କରନ୍ତୁ",
+text:"ବିପଦଜନକ ଖୋଲା ବୋରୱେଲ ବିଷୟରେ ତୁରନ୍ତ ସୂଚନା ଦିଅନ୍ତୁ।"
+},
+
+bn:{
+title:"প্রতিটি জীবন রক্ষা করুন",
+text:"বিপজ্জনক খোলা বোরওয়েলের খবর দিয়ে জীবন বাঁচাতে সাহায্য করুন।"
+}
+
+};
+
+const language=document.getElementById("language");
+
+language.addEventListener("change",function(){
+
+const lang=translations[this.value];
+
+document.getElementById("heroTitle").innerHTML=lang.title;
+
+document.getElementById("heroText").innerHTML=lang.text;
+
+});
+
+// 📋 No Reports Message
+
+if(totalReports===0){
+
+recentContainer.innerHTML=`
+
+<div class="card">
+
+<h3>No Reports Found</h3>
+
+<p>
+
+No borewell reports are available yet.
+
+</p>
+
+</div>
+
+`;
+
+}
+
+// ⚠️ Global Error Handler
+
+window.onerror=function(msg){
+
+console.log("BoreGuard Error:",msg);
+
+};
+
+// Loading Complete
+
+document.body.style.visibility="visible";
+ // 🌙 Dark Mode
+
+const darkBtn=document.createElement("button");
+
+darkBtn.innerHTML="🌙";
+
+darkBtn.style.cssText=`
+position:fixed;
+bottom:165px;
+left:20px;
+width:60px;
+height:60px;
+border:none;
+border-radius:50%;
+background:#222;
+color:#fff;
+font-size:24px;
+cursor:pointer;
+box-shadow:0 6px 18px rgba(0,0,0,.3);
+z-index:9999;
+`;
+
+document.body.appendChild(darkBtn);
+
+let darkMode=false;
+
+darkBtn.onclick=function(){
+
+darkMode=!darkMode;
+
+if(darkMode){
+
+document.body.style.background="#121212";
+document.body.style.color="#ffffff";
+darkBtn.innerHTML="☀️";
+
+}else{
+
+document.body.style.background="#f4f7fb";
+document.body.style.color="#333333";
+darkBtn.innerHTML="🌙";
+
+}
+
+};
+
+// ⬆️ Back To Top Button
+
+const topBtn=document.createElement("button");
+
+topBtn.innerHTML="⬆️";
+
+topBtn.style.cssText=`
+position:fixed;
+bottom:20px;
+left:20px;
+width:60px;
+height:60px;
+border:none;
+border-radius:50%;
+background:#0056b3;
+color:#fff;
+font-size:22px;
+cursor:pointer;
+display:none;
+box-shadow:0 6px 18px rgba(0,0,0,.3);
+z-index:9999;
+`;
+
+document.body.appendChild(topBtn);
+
+window.addEventListener("scroll",()=>{
+
+if(window.scrollY>300){
+
+topBtn.style.display="block";
+
+}else{
+
+topBtn.style.display="none";
+
+}
+
+});
+
+topBtn.onclick=function(){
+
+window.scrollTo({
+
+top:0,
+
+behavior:"smooth"
+
+});
+
+};
+
+// 🚀 Performance
+
+console.log("BoreGuard v2.0 Loaded Successfully");
+ // 🧹 Auto-close Help Bot when ESC is pressed
+
+document.addEventListener("keydown",function(e){
+
+if(e.key==="Escape"){
+
+helpBox.style.display="none";
+
+}
+
+});
+
+// 📌 Responsive map refresh
+
+window.addEventListener("resize",function(){
+
+setTimeout(function(){
+
+map.invalidateSize();
+
+},300);
+
+});
+
+// 🛡 BoreGuard Ready
+
+console.log("🛡 BoreGuard Home Page v2.0 Ready");
 
 </script>
 
