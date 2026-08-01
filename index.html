@@ -890,14 +890,18 @@ attribution:"© OpenStreetMap"
 
 const reportsRef=collection(db,"reports");
 const snapshot=await getDocs(reportsRef);
-
+const docs = snapshot.docs.sort((a,b)=>{
+const t1 = a.data().timestamp?.toDate?.() || new Date(0);
+const t2 = b.data().timestamp?.toDate?.() || new Date(0);
+return t2 - t1;
+});
 let totalReports=0;
 let citizens=new Set();
 let districts=new Set();
 
 const recentContainer=document.getElementById("recentReports");
 
-snapshot.forEach((doc)=>{
+docs.slice(0,5).forEach((doc)=>{
 
 const data=doc.data();
 
@@ -905,7 +909,9 @@ totalReports++;
 
 citizens.add(data.name);
 
+if(data.district){
 districts.add(data.district);
+}
 
 if(!data.location)return;
 
