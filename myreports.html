@@ -202,7 +202,31 @@ try{
 
 await deleteDoc(doc(db,"reports",id));
 
-alert("✅ Report Deleted");
+const successBox = document.createElement("div");
+
+successBox.innerHTML = `
+<div style="
+position:fixed;
+top:20px;
+left:50%;
+transform:translateX(-50%);
+background:#28a745;
+color:white;
+padding:16px 24px;
+border-radius:10px;
+font-size:16px;
+font-weight:bold;
+box-shadow:0 6px 15px rgba(0,0,0,0.3);
+z-index:99999;">
+✅ Report Deleted Successfully!
+</div>
+`;
+
+document.body.appendChild(successBox);
+
+setTimeout(() => {
+    successBox.remove();
+}, 3000);
 
 loadReports();
 
