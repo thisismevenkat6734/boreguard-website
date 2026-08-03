@@ -232,7 +232,31 @@ loadReports();
 
 }catch(e){
 
-alert(e.message);
+const errorBox = document.createElement("div");
+
+errorBox.innerHTML = `
+<div style="
+position:fixed;
+top:20px;
+left:50%;
+transform:translateX(-50%);
+background:#dc3545;
+color:white;
+padding:16px 24px;
+border-radius:10px;
+font-size:16px;
+font-weight:bold;
+box-shadow:0 6px 15px rgba(0,0,0,0.3);
+z-index:99999;">
+❌ ${e.message}
+</div>
+`;
+
+document.body.appendChild(errorBox);
+
+setTimeout(() => {
+    errorBox.remove();
+}, 3000);
 
 }
 
