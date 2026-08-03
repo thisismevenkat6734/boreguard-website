@@ -233,8 +233,31 @@ geo.address.suburb||
 
 function(error){
 
-alert("Location permission denied.");
+const msg = document.createElement("div");
 
+msg.innerHTML = `
+<div style="
+position:fixed;
+top:20px;
+left:50%;
+transform:translateX(-50%);
+background:#dc3545;
+color:white;
+padding:16px 24px;
+border-radius:10px;
+font-size:16px;
+font-weight:bold;
+box-shadow:0 6px 15px rgba(0,0,0,0.3);
+z-index:99999;">
+📍 Location permission denied.
+</div>
+`;
+
+document.body.appendChild(msg);
+
+setTimeout(() => {
+    msg.remove();
+}, 3000);
 },
 
 {
