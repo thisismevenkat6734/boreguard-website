@@ -381,6 +381,8 @@ document.getElementById("description").value="";
 document.getElementById("photo").value="";
 document.getElementById("preview").style.display="none";
 
+}catch(e){
+
 const errorBox = document.createElement("div");
 
 errorBox.innerHTML = `
@@ -406,6 +408,8 @@ document.body.appendChild(errorBox);
 setTimeout(() => {
     errorBox.remove();
 }, 3000);
+
+}
 
 };
 
